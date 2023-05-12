@@ -2,6 +2,8 @@ library(tidyverse)
 library(readxl)
 library(lubridate)
 
+bike_orderlines_wrangled_tbl <- read_excel(path = "C:\\Users\\Sagar\\Documents\\GitHub\ss23-bdsb-SagarWadke\\content\\01_journal\\01_tidyverse_files")
+
 #challenge_tidyverse_1
 new_tbl <- bike_orderlines_wrangled_tbl %>%
   
