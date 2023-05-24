@@ -1,19 +1,9 @@
----
-title: "Data Visualization"
-author: "Sagar Wadke"
----
-
-# Challenge_1: 
-## Map the time course of the cumulative Covid-19 cases.
-
-```{r}
-suppressWarnings({
 library(tidyverse)
 library(dplyr)
 library(lubridate)
 library(ggplot2)
 library(scales)
-})
+
 covid_data_tbl <- read_csv("https://opendata.ecdc.europa.eu/covid19/casedistribution/csv")
 covid_data_tbl <- covid_data_tbl[order(as.Date(covid_data_tbl$dateRep, format="%d/%m/%Y")),]
 
@@ -34,19 +24,14 @@ covid_data_tbl2 %>%
   labs(x = 'Year 2020', y='Cumulative Cases', fill = 'Countries') +
   scale_x_datetime(date_breaks = 'month', labels = label_date_short()) +
   scale_y_continuous(breaks = c(y_ticks))
-```
 
-# Challenge_2: 
-## Visualize the distribution of the mortality rate (deaths / population).
-
-```{r}
-suppressWarnings({
 library(tidyverse)
 library(ggthemes)
 library(ggrepel)
 library(lubridate)
 library(maps)
-})  
+
+## Challenge 2
 
 covid_data_tbl <- read_csv("https://covid.ourworldindata.org/data/owid-covid-data.csv") %>% 
   mutate(mortality_rate = total_deaths / population) %>% 
@@ -96,4 +81,3 @@ covid_map %>%
     title = element_text(color = "black"),
     legend.position = "right"
   )
-```

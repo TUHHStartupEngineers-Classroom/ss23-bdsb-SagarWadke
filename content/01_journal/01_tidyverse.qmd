@@ -6,11 +6,14 @@ author: "Sagar Wadke"
 # Challenge 1
 
 ```{r}
-library(tidyverse)
-library(readxl)
-library(lubridate)
+# 1.0 Load libraries ----
+suppressWarnings({
+  library(tidyverse)
+  library(readxl)
+  library(lubridate)
+})
 
-bike_orderlines_wrangled_tbl <- read_excel(path = "C:\\Users\\Sagar\\Documents\\GitHub\\ss23-bdsb-SagarWadke\\content\\01_journal\\01_tidyverse_files")
+bike_orderlines_wrangled_tbl <- read_excel(path = "C:\\Users\\Sagar\\Documents\\GitHub\\ss23-bdsb-SagarWadke\\bike_data\\bike_orderlines.xlsx")
 
 #challenge_tidyverse_1
 new_tbl <- bike_orderlines_wrangled_tbl %>%
@@ -31,8 +34,6 @@ new_tbl <- bike_orderlines_wrangled_tbl %>%
                                      decimal.mark = ",", 
                                      prefix = "", 
                                      suffix = " €"))
-
-new_tbl 
 
 new_tbl %>%
   
@@ -58,6 +59,16 @@ new_tbl %>%
     y = "Revenue"
   )
 
+```
+### Which state has the highest revenue?
+
+It can be noted from the graph that **"North Rhine-Westphalia"** has the highest revenue.
+
+# Challenge 2
+
+## Analyze the sales by location and year. 
+
+```{r}
 #challenge_tidyverse_2
 new_tbl2 <- bike_orderlines_wrangled_tbl %>%
   
@@ -66,7 +77,7 @@ new_tbl2 <- bike_orderlines_wrangled_tbl %>%
   separate(location, into = c("city", "state"), sep = ", ",remove = TRUE)  %>%
   mutate(year = year(order_date)) %>%
   
-  # Group by and summarize year and main catgegory
+  # Group by and summarize year and main category
   group_by(year, state) %>%
   summarise(sales = sum(total_price)) %>%
   ungroup() %>%
@@ -76,7 +87,6 @@ new_tbl2 <- bike_orderlines_wrangled_tbl %>%
                                      decimal.mark = ",", 
                                      prefix = "", 
                                      suffix = " €"))
-new_tbl2
 
 new_tbl2 %>%
   
@@ -99,5 +109,5 @@ new_tbl2 %>%
     subtitle = "",
     fill = "State" # Changes the legend name
   )
-
+  
 ```

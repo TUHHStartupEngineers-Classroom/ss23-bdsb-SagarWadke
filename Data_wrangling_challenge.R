@@ -26,28 +26,28 @@ col_types <- list(
 )
 
 assignee_tbl <- vroom(
-  file       = "C:\\Users\\Sagar\\Documents\\GitHub\\ss23-bdsb-SagarWadke\\assignee.tsv", 
+  file       = "C:\\Users\\Sagar\\Documents\\GitHub\\ss23-bdsb-SagarWadke\\patent_data\\assignee.tsv", 
   delim      = "\t", 
   col_types  = col_types,
   na         = c("", "NA", "NULL")
 )
 
 patent_assignee_tbl <- vroom(
-  file       = "C:\\Users\\Sagar\\Documents\\GitHub\\ss23-bdsb-SagarWadke\\patent_assignee.tsv", 
+  file       = "C:\\Users\\Sagar\\Documents\\GitHub\\ss23-bdsb-SagarWadke\\patent_data\\patent_assignee.tsv", 
   delim      = "\t", 
   col_types  = col_types,
   na         = c("", "NA", "NULL")
 )
 
 uspc_tbl <- vroom(
-  file       = "C:\\Users\\Sagar\\Documents\\GitHub\\ss23-bdsb-SagarWadke\\uspc.tsv", 
+  file       = "C:\\Users\\Sagar\\Documents\\GitHub\\ss23-bdsb-SagarWadke\\patent_data\\uspc.tsv", 
   delim      = "\t", 
   col_types  = col_types,
   na         = c("", "NA", "NULL")
 )
 
 patent_tbl <- vroom(
-  file       = "C:\\Users\\Sagar\\Documents\\GitHub\\ss23-bdsb-SagarWadke\\patent.tsv", 
+  file       = "C:\\Users\\Sagar\\Documents\\GitHub\\ss23-bdsb-SagarWadke\\patent_data\\patent.tsv", 
   delim      = "\t", 
   col_types  = col_types,
   na         = c("", "NA", "NULL")

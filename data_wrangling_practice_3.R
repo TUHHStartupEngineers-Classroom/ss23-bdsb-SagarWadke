@@ -1,22 +1,7 @@
----
-title: "Data Wrangling"
-author: "Sagar Wadke"
----
-
-# Challenge: 
-## Patent Dominance
-
-
-What US company / corporation has the most patents? List the 10 US companies with the most assigned/granted patents.List the 10 US companies with the most assigned/granted patents.
-
-
-```{r}
-suppressWarnings({
 library(vroom)
 library(tictoc)
 library(tidyverse)
 library(data.table)
-})
 
 col_types <- list(
   id = col_character(),
@@ -64,9 +49,9 @@ class(patent_tbl)
 setDT(patent_tbl)
 tic()
 Q1_patent_data <- merge(x = patent_assignee_tbl, y = assignee_tbl, 
-                       by.x="assignee_id", by.y ="id",
-                       all.x = TRUE, 
-                       all.y = FALSE)
+                        by.x="assignee_id", by.y ="id",
+                        all.x = TRUE, 
+                        all.y = FALSE)
 toc()
 setkey(Q1_patent_data, "assignee_id")
 key(Q1_patent_data)
@@ -83,24 +68,21 @@ Count_Q1<- Q1_patent_data %>%
 toc()
 #Print the top 10 companies with max patents
 head(Count_Q1,10)
-```
 
-**IBMC holds 7547 patents which is the highest in that year**
 
-# Challenge: 
-## Recent patent activity
-
-What US company had the most patents granted in August 2014? List the top 10 companies with the most new granted patents for August 2014.
-
-```{r}
+  
+  # Challenge: 
+  ## Recent patent activity
+  
+  #What US company had the most patents granted in August 2014? List the top 10 companies with the most new granted patents for August
 class(patent_tbl)
 setDT(patent_tbl)
 #Q2_patent_all has patent,patentdata,asignee data merged
 tic()
 Q2_patent_all <- merge(x = patent_tbl, y = Q1_patent_data, 
-                        by.x="id", by.y ="patent_id",
-                        all.x = TRUE, 
-                        all.y = FALSE)
+                       by.x="id", by.y ="patent_id",
+                       all.x = TRUE, 
+                       all.y = FALSE)
 toc()
 #Selecting a timeframe (Aug 1 2014 to Aug 31 2014) and building a new data frame Q2_Aug_patents
 Q2_Aug_patents<- with(Q2_patent_all, Q2_patent_all[(date >= "2014-08-01" & date <= "2014-08-31") ])
@@ -115,15 +97,16 @@ toc()
 head(Count_Aug,1)
 #Top 10 companies with new patents in August 2014
 head(Count_Aug,10)
-```
+
+
 **The above list shows the top 10 companies with the most new granted patents for August 2014.**
-
-# Challenge: 
-## Innovation in Tech
-
-What is the most innovative tech sector? For the top 10 companies (worldwide) with the most patents, what are the top 5 USPTO tech main classes?
-
-```{r}
+  
+  # Challenge: 
+  ## Innovation in Tech
+  
+  What is the most innovative tech sector? For the top 10 companies (worldwide) with the most patents, what are the top 5 USPTO tech main classes?
+  
+  ```{r}
 tic()
 Q3_patent_all <- merge(x = uspc_tbl, y = Q1_patent_data, 
                        by.x="patent_id", by.y ="patent_id",
@@ -153,5 +136,3 @@ head(mostinnovative_class_Q3,1)
 #Shows the top 5 USPTO Classes from the top 10 companies granted patents
 head(Q3_top10_CC,5)
 ```
-
-**The above table shows the top 5 USPTO tech main classes, from the top 10 companies**

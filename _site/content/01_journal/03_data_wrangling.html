@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.3.340">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-<meta name="author" content="Joschka Schwarz">
-
+<meta name="author" content="Sagar Wadke">
 <title>MyLabJournal - Data Wrangling</title>
 <style>
 code{white-space: pre-wrap;}
@@ -21,8 +18,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
-
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
@@ -42,8 +72,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script id="quarto-search-options" type="application/json">{
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -61,17 +90,13 @@ ul.task-list li input[type="checkbox"] {
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit"
   }
-}</script>
-
-
+}</script><link href="../../site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="../../site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 </head>
-
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
-      <div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">MyLabJournal</span>
@@ -83,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
+<li class="nav-item">
     <a class="nav-link" href="../../index.html" rel="" target="">
  <span class="menu-text">Home</span></a>
   </li>  
@@ -91,8 +116,8 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-journal" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Journal</span>
     </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-journal">    
-        <li>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-journal">
+<li>
     <a class="dropdown-item" href="../../content/01_journal/01_tidyverse.html" rel="" target="">
  <span class="dropdown-text">01 Tidyverse</span></a>
   </li>  
@@ -109,7 +134,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">04 Data Visualization</span></a>
   </li>  
     </ul>
-  </li>
+</li>
   <li class="nav-item">
     <a class="nav-link" href="../../content/02_notes/05_class_notes.html" rel="" target="">
  <span class="menu-text">Class notes</span></a>
@@ -119,25 +144,40 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Links</span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools ms-auto">
+<div class="quarto-navbar-tools ms-auto">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Contents</h2>
+   
+  <ul class="collapse">
+<li>
+<a href="#challenge" id="toc-challenge" class="nav-link active" data-scroll-target="#challenge"><span class="header-section-number">1</span> Challenge:</a>
+  <ul class="collapse">
+<li><a href="#patent-dominance" id="toc-patent-dominance" class="nav-link" data-scroll-target="#patent-dominance"><span class="header-section-number">1.1</span> Patent Dominance</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#challenge-1" id="toc-challenge-1" class="nav-link" data-scroll-target="#challenge-1"><span class="header-section-number">2</span> Challenge:</a>
+  <ul class="collapse">
+<li><a href="#recent-patent-activity" id="toc-recent-patent-activity" class="nav-link" data-scroll-target="#recent-patent-activity"><span class="header-section-number">2.1</span> Recent patent activity</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#challenge-2" id="toc-challenge-2" class="nav-link" data-scroll-target="#challenge-2"><span class="header-section-number">3</span> Challenge:</a>
+  <ul class="collapse">
+<li><a href="#innovation-in-tech" id="toc-innovation-in-tech" class="nav-link" data-scroll-target="#innovation-in-tech"><span class="header-section-number">3.1</span> Innovation in Tech</a></li>
+  </ul>
+</li>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">Data Wrangling</h1>
 </div>
 
@@ -148,7 +188,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Joschka Schwarz </p>
+             <p>Sagar Wadke </p>
           </div>
   </div>
     
@@ -157,26 +197,257 @@ ul.task-list li input[type="checkbox"] {
   </div>
   
 
-</header>
+</header><section id="challenge" class="level1" data-number="1"><h1 data-number="1">
+<span class="header-section-number">1</span> Challenge:</h1>
+<section id="patent-dominance" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="patent-dominance">
+<span class="header-section-number">1.1</span> Patent Dominance</h2>
+<p>What US company / corporation has the most patents? List the 10 US companies with the most assigned/granted patents.List the 10 US companies with the most assigned/granted patents.</p>
+<div class="cell" data-hash="03_data_wrangling_cache/html/unnamed-chunk-2_4ff711ff2bbd6a2019b3fd4182a685c3">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">suppressWarnings</span>({</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(vroom)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(tictoc)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb1-6"><a href="#cb1-6"></a>})</span>
+<span id="cb1-7"><a href="#cb1-7"></a></span>
+<span id="cb1-8"><a href="#cb1-8"></a>col_types <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb1-9"><a href="#cb1-9"></a>  <span class="at">id =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb1-10"><a href="#cb1-10"></a>  <span class="at">type =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb1-11"><a href="#cb1-11"></a>  <span class="at">number =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb1-12"><a href="#cb1-12"></a>  <span class="at">country =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb1-13"><a href="#cb1-13"></a>  <span class="at">date =</span> <span class="fu">col_date</span>(<span class="st">"%Y-%m-%d"</span>),</span>
+<span id="cb1-14"><a href="#cb1-14"></a>  <span class="at">abstract =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb1-15"><a href="#cb1-15"></a>  <span class="at">title =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb1-16"><a href="#cb1-16"></a>  <span class="at">kind =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb1-17"><a href="#cb1-17"></a>  <span class="at">num_claims =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb1-18"><a href="#cb1-18"></a>  <span class="at">filename =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb1-19"><a href="#cb1-19"></a>  <span class="at">withdrawn =</span> <span class="fu">col_double</span>()</span>
+<span id="cb1-20"><a href="#cb1-20"></a>)</span>
+<span id="cb1-21"><a href="#cb1-21"></a>patent_tbl <span class="ot">&lt;-</span> <span class="fu">vroom</span>(</span>
+<span id="cb1-22"><a href="#cb1-22"></a>  <span class="at">file       =</span> <span class="st">"C:</span><span class="sc">\\</span><span class="st">Users</span><span class="sc">\\</span><span class="st">Sagar</span><span class="sc">\\</span><span class="st">Documents</span><span class="sc">\\</span><span class="st">GitHub</span><span class="sc">\\</span><span class="st">ss23-bdsb-SagarWadke</span><span class="sc">\\</span><span class="st">patent_data</span><span class="sc">\\</span><span class="st">patent.tsv"</span>, </span>
+<span id="cb1-23"><a href="#cb1-23"></a>  <span class="at">delim      =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, </span>
+<span id="cb1-24"><a href="#cb1-24"></a>  <span class="at">col_types  =</span> col_types,</span>
+<span id="cb1-25"><a href="#cb1-25"></a>  <span class="at">na         =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"NA"</span>, <span class="st">"NULL"</span>)</span>
+<span id="cb1-26"><a href="#cb1-26"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; Warning: The following named parsers don't match the column names: type, number,
+#&gt; country, abstract, title, kind, filename, withdrawn</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>uspc_tbl <span class="ot">&lt;-</span> <span class="fu">vroom</span>(</span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="at">file       =</span> <span class="st">"C:</span><span class="sc">\\</span><span class="st">Users</span><span class="sc">\\</span><span class="st">Sagar</span><span class="sc">\\</span><span class="st">Documents</span><span class="sc">\\</span><span class="st">GitHub</span><span class="sc">\\</span><span class="st">ss23-bdsb-SagarWadke</span><span class="sc">\\</span><span class="st">patent_data</span><span class="sc">\\</span><span class="st">uspc.tsv"</span>, </span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="at">delim      =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, </span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="at">col_types  =</span> col_types,</span>
+<span id="cb3-5"><a href="#cb3-5"></a>  <span class="at">na         =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"NA"</span>, <span class="st">"NULL"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; Warning: The following named parsers don't match the column names: id, type,
+#&gt; number, country, date, abstract, title, kind, num_claims, filename, withdrawn</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>patent_assignee_tbl <span class="ot">&lt;-</span> <span class="fu">vroom</span>(</span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="at">file       =</span> <span class="st">"C:</span><span class="sc">\\</span><span class="st">Users</span><span class="sc">\\</span><span class="st">Sagar</span><span class="sc">\\</span><span class="st">Documents</span><span class="sc">\\</span><span class="st">GitHub</span><span class="sc">\\</span><span class="st">ss23-bdsb-SagarWadke</span><span class="sc">\\</span><span class="st">patent_data</span><span class="sc">\\</span><span class="st">patent_assignee.tsv"</span>, </span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="at">delim      =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, </span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="at">col_types  =</span> col_types,</span>
+<span id="cb5-5"><a href="#cb5-5"></a>  <span class="at">na         =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"NA"</span>, <span class="st">"NULL"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; Warning: The following named parsers don't match the column names: id, type,
+#&gt; number, country, date, abstract, title, kind, num_claims, filename, withdrawn</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>assignee_tbl <span class="ot">&lt;-</span> <span class="fu">vroom</span>(</span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="at">file       =</span> <span class="st">"C:</span><span class="sc">\\</span><span class="st">Users</span><span class="sc">\\</span><span class="st">Sagar</span><span class="sc">\\</span><span class="st">Documents</span><span class="sc">\\</span><span class="st">GitHub</span><span class="sc">\\</span><span class="st">ss23-bdsb-SagarWadke</span><span class="sc">\\</span><span class="st">patent_data</span><span class="sc">\\</span><span class="st">assignee.tsv"</span>, </span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="at">delim      =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, </span>
+<span id="cb7-4"><a href="#cb7-4"></a>  <span class="at">col_types  =</span> col_types,</span>
+<span id="cb7-5"><a href="#cb7-5"></a>  <span class="at">na         =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"NA"</span>, <span class="st">"NULL"</span>)</span>
+<span id="cb7-6"><a href="#cb7-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; Warning: The following named parsers don't match the column names: number,
+#&gt; country, date, abstract, title, kind, num_claims, filename, withdrawn</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">#---------------------Qustion 1------------------------</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">class</span>(assignee_tbl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; [1] "spec_tbl_df" "tbl_df"      "tbl"         "data.frame"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">setDT</span>(assignee_tbl)</span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="fu">class</span>(patent_assignee_tbl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; [1] "spec_tbl_df" "tbl_df"      "tbl"         "data.frame"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">setDT</span>(patent_assignee_tbl)</span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">class</span>(patent_tbl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; [1] "spec_tbl_df" "tbl_df"      "tbl"         "data.frame"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">setDT</span>(patent_tbl)</span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="fu">tic</span>()</span>
+<span id="cb15-3"><a href="#cb15-3"></a>Q1_patent_data <span class="ot">&lt;-</span> <span class="fu">merge</span>(<span class="at">x =</span> patent_assignee_tbl, <span class="at">y =</span> assignee_tbl, </span>
+<span id="cb15-4"><a href="#cb15-4"></a>                       <span class="at">by.x=</span><span class="st">"assignee_id"</span>, <span class="at">by.y =</span><span class="st">"id"</span>,</span>
+<span id="cb15-5"><a href="#cb15-5"></a>                       <span class="at">all.x =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb15-6"><a href="#cb15-6"></a>                       <span class="at">all.y =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb15-7"><a href="#cb15-7"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; 0.31 sec elapsed</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">setkey</span>(Q1_patent_data, <span class="st">"assignee_id"</span>)</span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="fu">key</span>(Q1_patent_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; [1] "assignee_id"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>Q1_patent_data <span class="sc">%&gt;%</span> <span class="fu">dim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; [1] 315910      4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>keep_cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"assignee_id"</span>,<span class="st">"patent_id"</span>,<span class="st">"organization"</span>)</span>
+<span id="cb21-2"><a href="#cb21-2"></a>Q1_patent_data <span class="ot">&lt;-</span> Q1_patent_data[, ..keep_cols]</span>
+<span id="cb21-3"><a href="#cb21-3"></a>Q1_patent_data <span class="sc">%&gt;%</span> <span class="fu">dim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; [1] 315910      3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>Q1_patent_data <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; Rows: 315,910
+#&gt; Columns: 3
+#&gt; $ assignee_id  &lt;chr&gt; "org_004j997jM9yEdS7z4ReD", "org_004j997jM9yEdS7z4ReD", "~
+#&gt; $ patent_id    &lt;chr&gt; "8728438", "8921361", "8857791", "8845559", "8815936", "8~
+#&gt; $ organization &lt;chr&gt; "University of Basel", "University of Basel", "Zetkama Sp~</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co">#Count_Q1 contains the data of the companies/organisations and the number of patents they hold in decending oreder</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a><span class="fu">tic</span>()</span>
+<span id="cb25-3"><a href="#cb25-3"></a>Count_Q1<span class="ot">&lt;-</span> Q1_patent_data <span class="sc">%&gt;%</span></span>
+<span id="cb25-4"><a href="#cb25-4"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(organization)) <span class="sc">%&gt;%</span></span>
+<span id="cb25-5"><a href="#cb25-5"></a>  <span class="fu">count</span>(organization)<span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
+<span id="cb25-6"><a href="#cb25-6"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; 0.54 sec elapsed</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co">#Print the top 10 companies with max patents</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a><span class="fu">head</span>(Count_Q1,<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
 
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["organization"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"International Business Machines Corporation","2":"7547"},{"1":"Samsung Electronics Co., Ltd.","2":"5835"},{"1":"Canon Kabushiki Kaisha","2":"4099"},{"1":"Sony Corporation","2":"3326"},{"1":"Microsoft Corporation","2":"3165"},{"1":"Google Inc.","2":"2668"},{"1":"Kabushiki Kaisha Toshiba","2":"2656"},{"1":"QUALCOMM Incorporated","2":"2597"},{"1":"LG Electronics Inc.","2":"2459"},{"1":"Panasonic Corporation","2":"2218"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p>You can delete everything in here and start fresh.</p>
+</div>
+<p><strong>IBMC holds 7547 patents which is the highest in that year</strong></p>
+</section></section><section id="challenge-1" class="level1" data-number="2"><h1 data-number="2">
+<span class="header-section-number">2</span> Challenge:</h1>
+<section id="recent-patent-activity" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="recent-patent-activity">
+<span class="header-section-number">2.1</span> Recent patent activity</h2>
+<p>What US company had the most patents granted in August 2014? List the top 10 companies with the most new granted patents for August 2014.</p>
+<div class="cell" data-hash="03_data_wrangling_cache/html/unnamed-chunk-4_7e251ea1e28d3efb80539d5634906f56">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">class</span>(patent_tbl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; [1] "data.table" "data.frame"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">setDT</span>(patent_tbl)</span>
+<span id="cb30-2"><a href="#cb30-2"></a><span class="co">#Q2_patent_all has patent,patentdata,asignee data merged</span></span>
+<span id="cb30-3"><a href="#cb30-3"></a><span class="fu">tic</span>()</span>
+<span id="cb30-4"><a href="#cb30-4"></a>Q2_patent_all <span class="ot">&lt;-</span> <span class="fu">merge</span>(<span class="at">x =</span> patent_tbl, <span class="at">y =</span> Q1_patent_data, </span>
+<span id="cb30-5"><a href="#cb30-5"></a>                        <span class="at">by.x=</span><span class="st">"id"</span>, <span class="at">by.y =</span><span class="st">"patent_id"</span>,</span>
+<span id="cb30-6"><a href="#cb30-6"></a>                        <span class="at">all.x =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb30-7"><a href="#cb30-7"></a>                        <span class="at">all.y =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb30-8"><a href="#cb30-8"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; 0.86 sec elapsed</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="co">#Selecting a timeframe (Aug 1 2014 to Aug 31 2014) and building a new data frame Q2_Aug_patents</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a>Q2_Aug_patents<span class="ot">&lt;-</span> <span class="fu">with</span>(Q2_patent_all, Q2_patent_all[(date <span class="sc">&gt;=</span> <span class="st">"2014-08-01"</span> <span class="sc">&amp;</span> date <span class="sc">&lt;=</span> <span class="st">"2014-08-31"</span>) ])</span>
+<span id="cb32-3"><a href="#cb32-3"></a><span class="co">#Count_Aug has the data of all the organisations that got a patent in Aug 2014 in desc order </span></span>
+<span id="cb32-4"><a href="#cb32-4"></a><span class="co">#with number of patents</span></span>
+<span id="cb32-5"><a href="#cb32-5"></a><span class="fu">tic</span>()</span>
+<span id="cb32-6"><a href="#cb32-6"></a>Count_Aug<span class="ot">&lt;-</span> Q2_Aug_patents <span class="sc">%&gt;%</span></span>
+<span id="cb32-7"><a href="#cb32-7"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(organization)) <span class="sc">%&gt;%</span></span>
+<span id="cb32-8"><a href="#cb32-8"></a>  <span class="fu">count</span>(organization)<span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
+<span id="cb32-9"><a href="#cb32-9"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; 0.08 sec elapsed</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="co">#Company with most patents in August 2014</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a><span class="fu">head</span>(Count_Aug,<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["organization"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"International Business Machines Corporation","2":"718"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
 </div>
 </div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="co">#Top 10 companies with new patents in August 2014</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a><span class="fu">head</span>(Count_Aug,<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["organization"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"International Business Machines Corporation","2":"718"},{"1":"Samsung Electronics Co., Ltd.","2":"524"},{"1":"Canon Kabushiki Kaisha","2":"361"},{"1":"Microsoft Corporation","2":"337"},{"1":"Sony Corporation","2":"269"},{"1":"Google Inc.","2":"240"},{"1":"QUALCOMM Incorporated","2":"223"},{"1":"Apple Inc.","2":"222"},{"1":"Kabushiki Kaisha Toshiba","2":"213"},{"1":"LG Electronics Inc.","2":"211"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p><strong>The above list shows the top 10 companies with the most new granted patents for August 2014.</strong></p>
+</section></section><section id="challenge-2" class="level1" data-number="3"><h1 data-number="3">
+<span class="header-section-number">3</span> Challenge:</h1>
+<section id="innovation-in-tech" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="innovation-in-tech">
+<span class="header-section-number">3.1</span> Innovation in Tech</h2>
+<p>What is the most innovative tech sector? For the top 10 companies (worldwide) with the most patents, what are the top 5 USPTO tech main classes?</p>
+<div class="cell" data-hash="03_data_wrangling_cache/html/unnamed-chunk-6_0ebde27f73627b373845a0cd2751f06c">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">tic</span>()</span>
+<span id="cb36-2"><a href="#cb36-2"></a>Q3_patent_all <span class="ot">&lt;-</span> <span class="fu">merge</span>(<span class="at">x =</span> uspc_tbl, <span class="at">y =</span> Q1_patent_data, </span>
+<span id="cb36-3"><a href="#cb36-3"></a>                       <span class="at">by.x=</span><span class="st">"patent_id"</span>, <span class="at">by.y =</span><span class="st">"patent_id"</span>,</span>
+<span id="cb36-4"><a href="#cb36-4"></a>                       <span class="at">all.x =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb36-5"><a href="#cb36-5"></a>                       <span class="at">all.y =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb36-6"><a href="#cb36-6"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; 6.09 sec elapsed</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="co">#Most innovative class can be calculated by summing the total number of patents for each class</span></span>
+<span id="cb38-2"><a href="#cb38-2"></a><span class="fu">tic</span>()</span>
+<span id="cb38-3"><a href="#cb38-3"></a>mostinnovative_class_Q3<span class="ot">&lt;-</span> Q3_patent_all <span class="sc">%&gt;%</span></span>
+<span id="cb38-4"><a href="#cb38-4"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(mainclass_id)) <span class="sc">%&gt;%</span></span>
+<span id="cb38-5"><a href="#cb38-5"></a>  <span class="fu">count</span>(mainclass_id)<span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
+<span id="cb38-6"><a href="#cb38-6"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; 0.16 sec elapsed</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="co">#making a df of top10 companies only to investigate the top 5 uspto</span></span>
+<span id="cb40-2"><a href="#cb40-2"></a>Q3_top10 <span class="ot">&lt;-</span> Q3_patent_all[Q3_patent_all<span class="sc">$</span>organization <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'International Business Machines Corporation'</span>,<span class="st">'Samsung Electronics Co., Ltd.'</span>,<span class="st">'Canon Kabushiki Kaisha'</span>,<span class="st">'Sony Corporation'</span>,<span class="st">'Microsoft Corporation'</span>,<span class="st">'Google Inc.'</span>,<span class="st">'Kabushiki Kaisha Toshiba'</span>,<span class="st">'QUALCOMM Incorporated'</span>,<span class="st">'LG Electronics Inc.'</span>,<span class="st">'Panasonic Corporation'</span>),]</span>
+<span id="cb40-3"><a href="#cb40-3"></a><span class="co">#adding a new column with has Company name &amp; Class togeather titled "Company_Class"</span></span>
+<span id="cb40-4"><a href="#cb40-4"></a>Q3_top10<span class="sc">$</span>Company_Class <span class="ot">&lt;-</span> <span class="fu">paste</span>(Q3_top10<span class="sc">$</span>organization, Q3_top10<span class="sc">$</span>mainclass_id)</span>
+<span id="cb40-5"><a href="#cb40-5"></a><span class="co">#Counting the Company_class and arranging in desc order</span></span>
+<span id="cb40-6"><a href="#cb40-6"></a><span class="fu">tic</span>()</span>
+<span id="cb40-7"><a href="#cb40-7"></a>Q3_top10_CC<span class="ot">&lt;-</span> Q3_top10 <span class="sc">%&gt;%</span></span>
+<span id="cb40-8"><a href="#cb40-8"></a>  <span class="fu">count</span>(Company_Class)<span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
+<span id="cb40-9"><a href="#cb40-9"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; 0.03 sec elapsed</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="co">#displaying the most innovative class and its corresponding number of patents of that class</span></span>
+<span id="cb42-2"><a href="#cb42-2"></a><span class="fu">head</span>(mostinnovative_class_Q3,<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["mainclass_id"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"257","2":"42003","_rn_":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="co">#Shows the top 5 USPTO Classes from the top 10 companies granted patents</span></span>
+<span id="cb43-2"><a href="#cb43-2"></a><span class="fu">head</span>(Q3_top10_CC,<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Company_Class"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"International Business Machines Corporation 257","2":"2397","_rn_":"1"},{"1":"QUALCOMM Incorporated 455","2":"2226","_rn_":"2"},{"1":"Samsung Electronics Co., Ltd. 257","2":"2017","_rn_":"3"},{"1":"QUALCOMM Incorporated 370","2":"1781","_rn_":"4"},{"1":"International Business Machines Corporation 438","2":"1742","_rn_":"5"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p><strong>The above table shows the top 5 USPTO tech main classes, from the top 10 companies</strong></p>
 
 
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");

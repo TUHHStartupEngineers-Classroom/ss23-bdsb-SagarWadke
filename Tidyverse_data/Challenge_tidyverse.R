@@ -2,7 +2,7 @@ library(tidyverse)
 library(readxl)
 library(lubridate)
 
-bike_orderlines_wrangled_tbl <- read_excel(path = "C:\\Users\\Sagar\\Documents\\GitHub\ss23-bdsb-SagarWadke\\content\\01_journal\\01_tidyverse_files")
+bike_orderlines_wrangled_tbl <- read_excel(path = "C:\\Users\\Sagar\\Documents\\GitHub\\ss23-bdsb-SagarWadke\\bike_data\\bike_orderlines.xlsx")
 
 #challenge_tidyverse_1
 new_tbl <- bike_orderlines_wrangled_tbl %>%
@@ -22,7 +22,7 @@ new_tbl <- bike_orderlines_wrangled_tbl %>%
   mutate(sales_text = scales::dollar(sales, big.mark = ".", 
                                      decimal.mark = ",", 
                                      prefix = "", 
-                                     suffix = " €"))
+                                     suffix = " ???"))
 
 new_tbl 
 
@@ -42,7 +42,7 @@ new_tbl %>%
   scale_y_continuous(labels = scales::dollar_format(big.mark = ".", 
                                                     decimal.mark = ",", 
                                                     prefix = "", 
-                                                    suffix = " €")) +
+                                                    suffix = " ???")) +
   labs(
     title    = "Revenue by state",
     subtitle = "",
@@ -67,7 +67,7 @@ new_tbl2 <- bike_orderlines_wrangled_tbl %>%
   mutate(sales_text = scales::dollar(sales, big.mark = ".", 
                                      decimal.mark = ",", 
                                      prefix = "", 
-                                     suffix = " €"))
+                                     suffix = " ???"))
 new_tbl2
 
 new_tbl2 %>%
@@ -85,7 +85,7 @@ new_tbl2 %>%
   scale_y_continuous(labels = scales::dollar_format(big.mark = ".", 
                                                     decimal.mark = ",", 
                                                     prefix = "", 
-                                                    suffix = " €")) +
+                                                    suffix = " ???")) +
   labs(
     title = "Revenue by year and state",
     subtitle = "",
