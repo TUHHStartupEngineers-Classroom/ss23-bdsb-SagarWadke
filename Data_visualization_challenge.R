@@ -1,0 +1,83 @@
+library(tidyverse)
+library(dplyr)
+library(lubridate)
+library(ggplot2)
+library(scales)
+
+covid_data_tbl <- read_csv("https://opendata.ecdc.europa.eu/covid19/casedistribution/csv")
+covid_data_tbl <- covid_data_tbl[order(as.Date(covid_data_tbl$dateRep, format="%d/%m/%Y")),]
+
+covid_data_tbl2 <- covid_data_tbl %>%
+  filter(countriesAndTerritories %in% c('Spain', 'United_Kingdom', 'France', 'Germany','United_States_of_America')) %>%
+  select(dateRep, countriesAndTerritories, cases) %>%
+  group_by(countriesAndTerritories) %>%
+  mutate(cumulativeCases = cumsum(cases))  %>%
+  select(dateRep, countriesAndTerritories, cumulativeCases) %>%
+  rename(countries = countriesAndTerritories)
+# Plotting the values 
+ticks = c("Dec","Jan", 'Feb','March', 'April', 'May', 'June','July',
+          'Aug','Sept','Oct','Nov','Dec')
+y_ticks = seq(0,max(covid_data_tbl2$cumulativeCases),1250000)
+covid_data_tbl2 %>%
+  ggplot(aes(x = as.POSIXct(dateRep, format = '%d/%m/%Y'), y = cumulativeCases)) +
+  geom_line(aes(color = countries), linewidth = 1) +
+  labs(x = 'Year 2020', y='Cumulative Cases', fill = 'Countries') +
+  scale_x_datetime(date_breaks = 'month', labels = label_date_short()) +
+  scale_y_continuous(breaks = c(y_ticks))
+
+library(tidyverse)
+library(ggthemes)
+library(ggrepel)
+library(lubridate)
+library(maps)
+
+## Challenge 2
+
+covid_data_tbl <- read_csv("https://covid.ourworldindata.org/data/owid-covid-data.csv") %>% 
+  mutate(mortality_rate = total_deaths / population) %>% 
+  group_by(location) %>% 
+  summarise(latest_mort_rate = last(mortality_rate)) %>% 
+  select(location, latest_mort_rate) %>% 
+  mutate(location = case_when(
+    
+    location == "United Kingdom" ~ "UK",
+    location == "United States" ~ "USA",
+    location == "Democratic Republic of Congo" ~ "Democratic Republic of the Congo",
+    TRUE ~ location
+    
+  )) %>%
+  distinct()
+
+world <- map_data("world")
+
+covid_map <- merge(x = world, y = covid_data_tbl, by.x = "region", by.y = "location") %>% 
+  select(region, long, lat, latest_mort_rate)
+
+covid_map %>% 
+  ggplot() +
+  
+  geom_map(aes(x = long, y = lat, map_id = region, fill = latest_mort_rate), map = world) +
+  
+  borders("world", colour = "grey70") +
+  
+  scale_fill_continuous(labels = scales::percent_format(accuracy = 0.001), 
+                        low = "firebrick1", 
+                        high = "darkred") +
+  
+  labs(
+    title = "Confirmed COVID-19 deaths relative to the size of the population",
+    subtitle = "Around 6.2 Million confirmed COVID-19 deaths worldwide",
+    caption = "Date: 08/05/2022",
+    fill = "Mortality Rate"
+  ) +
+  
+  theme_minimal() +
+  
+  theme(
+    axis.line = element_blank(),
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title = element_blank(),
+    title = element_text(color = "black"),
+    legend.position = "right"
+  )

@@ -1,98 +1,113 @@
 ---
 title: "Tidyverse"
-author: "Joschka Schwarz"
+author: "Sagar Wadke"
 ---
 
-::: callout-note
-You can delete everything in here and start fresh.
-:::
-
-This is a `.qmd` file. It is plain text with special features. Any time you write just like this, it will be compiled to normal text in the website. If you put a \# in front of your text, it will create a top level-header.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
-
-# Text Formatting
-
-*italics* and **bold**
-
-superscript^2^ / subscript~2~
-
-~~strikethrough~~
-
-`verbatim code`
-
-> Blockquote
-
-# Headings
-
-## Header 2
-### Header 3
-#### Header 4
-##### Header 5
-###### Header 6
-
-# Links & Images
-
-<https://quarto.org>
-
-[Quarto](https://quarto.org)
-
-![Caption](../../assets/img/elephant.png)
-
-[![Caption](../../assets/img/elephant.png)](https://quarto.org)
-
-[![Caption](../../assets/img/elephant.png)](https://quarto.org "An elephant")
-
-
-# Lists
-
-* unordered list
-    + sub-item 1
-    + sub-item 2
-        - sub-sub-item 1
-        
-*   item 2
-
-    Continued (indent 4 spaces)
-    
-    
-1. ordered list
-2. item 2
-    i) sub-item 1
-         A.  sub-sub-item 1
-         
-(@)  A list whose numbering
-
-continues after
-
-(@)  an interruption
-
-# Tables
-
-| Right | Left | Default | Center |
-|------:|:-----|---------|:------:|
-|   12  |  12  |    12   |    12  |
-|  123  |  123 |   123   |   123  |
-|    1  |    1 |     1   |     1  |
-
-# Source Code
-
-Use ``` to delimit blocks of source code:
-
-```
-code
-```
-
-Add a language to syntax highlight code blocks:
+# Challenge 1
 
 ```{r}
-1 + 1
+# 1.0 Load libraries ----
+suppressWarnings({
+  library(tidyverse)
+  library(readxl)
+  library(lubridate)
+})
+
+bike_orderlines_wrangled_tbl <- read_excel(path = "C:\\Users\\Sagar\\Documents\\GitHub\\ss23-bdsb-SagarWadke\\bike_data\\bike_orderlines.xlsx")
+
+#challenge_tidyverse_1
+new_tbl <- bike_orderlines_wrangled_tbl %>%
+  
+  #Select Columns
+  select(location, total_price) %>%
+  
+  #Separate city and state
+  separate(location, into = c("city", "state"), sep = ", ",remove = TRUE)  %>%
+  
+  #Group states and sales
+  group_by(state) %>%
+  summarise(sales = sum(total_price)) %>%
+  ungroup() %>%
+  
+  # Format $ Text
+  mutate(sales_text = scales::dollar(sales, big.mark = ".", 
+                                     decimal.mark = ",", 
+                                     prefix = "", 
+                                     suffix = " €"))
+
+new_tbl %>%
+  
+  # Setup canvas with the columns year (x-axis) and sales (y-axis)
+  ggplot(aes(x = state, y = sales)) +
+  
+  # Geometries
+  geom_col(fill = "#2DC6D6") + # Use geom_col for a bar plot
+  geom_label(aes(label = sales_text)) + # Adding labels to the bars
+  geom_smooth(method = "lm", se = FALSE) + # Adding a trendline
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  # Formatting
+  # scale_y_continuous(labels = scales::dollar) + # Change the y-axis. 
+  # Again, we have to adjust it for euro values
+  scale_y_continuous(labels = scales::dollar_format(big.mark = ".", 
+                                                    decimal.mark = ",", 
+                                                    prefix = "", 
+                                                    suffix = " €")) +
+  labs(
+    title    = "Revenue by state",
+    subtitle = "",
+    x = "State",
+    y = "Revenue"
+  )
+
 ```
+### Which state has the highest revenue?
+
+It can be noted from the graph that **"North Rhine-Westphalia"** has the highest revenue.
+
+# Challenge 2
+
+## Analyze the sales by location and year. 
 
 ```{r}
-cars
-```
+#challenge_tidyverse_2
+new_tbl2 <- bike_orderlines_wrangled_tbl %>%
+  
+  # Select columns and add a year
+  select(order_date, location, total_price) %>%
+  separate(location, into = c("city", "state"), sep = ", ",remove = TRUE)  %>%
+  mutate(year = year(order_date)) %>%
+  
+  # Group by and summarize year and main category
+  group_by(year, state) %>%
+  summarise(sales = sum(total_price)) %>%
+  ungroup() %>%
+  
+  # Format $ Text
+  mutate(sales_text = scales::dollar(sales, big.mark = ".", 
+                                     decimal.mark = ",", 
+                                     prefix = "", 
+                                     suffix = " €"))
 
-```{r}
-plot(cars)
+new_tbl2 %>%
+  
+  # Set up x, y, fill
+  ggplot(aes(x = year, y = sales, fill = state)) +
+  
+  # Geometries
+  geom_col() + # Run up to here to get a stacked bar plot
+  geom_smooth(method = "lm", se = FALSE) + #trendline
+  # Facet
+  facet_wrap(~ state) +
+  
+  # Formatting
+  scale_y_continuous(labels = scales::dollar_format(big.mark = ".", 
+                                                    decimal.mark = ",", 
+                                                    prefix = "", 
+                                                    suffix = " €")) +
+  labs(
+    title = "Revenue by year and state",
+    subtitle = "",
+    fill = "State" # Changes the legend name
+  )
+  
 ```
